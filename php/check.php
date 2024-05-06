@@ -21,7 +21,8 @@
         header("location:../home.php");
     }
     else{
-        $_SESSION['msg'] = "You are not eligible for the post";
-        header("location:../home.php");
+        $_SESSION['msg'] = "You are not eligible for the post as you have scored less than pass mark";
+        $_SESSION['mark'] = ($result/$_SESSION['tq']) * 100;
+        header("location:../result_quiz.php");
     }
 ?>

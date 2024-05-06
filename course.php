@@ -1,16 +1,3 @@
-<?php 
-    session_start();
-    $acctype = $_SESSION['acctype'];
-    if($acctype == "organization"){
-        $_SESSION['msg'] = "This option is only for Individual user";
-        header("location: home.php");
-    }
-?>
-<?php 
-    include("php/conn.php");
-    $query = "SELECT * FROM `course` WHERE 1";
-    $run = mysqli_query($conn, $query);
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,11 +24,8 @@
             margin-top: 20px;
         }
 
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-
         th, td {
+            border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
         }
@@ -55,15 +39,17 @@
             color: white;
             border: none;
             padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
             font-size: 16px;
             margin: 4px 2px;
             cursor: pointer;
             border-radius: 5px;
         }
-        
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -75,19 +61,30 @@
     <table>
         <tr>
             <th>Course Name</th>
-            <th>Course Link</th>
+            <th>Preview</th>
             <th>Operation</th>
         </tr>
         <?php 
-            while($result = mysqli_fetch_assoc($run))
-            {
+        include("php/conn.php");
+        $query = "SELECT * FROM `course`";
+        $run = mysqli_query($conn, $query);
+        while ($result = mysqli_fetch_assoc($run)) {
+            $video_id = '';
+            if (preg_match('/youtube\.com.*(\?v=|\/embed\/)(.{11})/', $result['link'], $matches)) {
+                $video_id = $matches[2];
+            } elseif (preg_match('/youtu\.be\/(.{11})/', $result['link'], $matches)) {
+                $video_id = $matches[1];
+            }
+            $embedUrl = "https://www.youtube.com/embed/$video_id";
         ?>
         <form action="php/enroll.php" method="post">
             <tr>
-                <td><?php echo $result['course_name'] ?></td>
-                <td><a href="<?php echo $result['link'] ?>"><?php echo $result['link'] ?></a></td>
-                <input type="hidden" name="id" value="<?php echo $result['id'] ?>">
-                <input type="hidden" name="link" value="<?php echo $result['link']; ?>">
+                <td><?= htmlspecialchars($result['course_name']); ?></td>
+                <td>
+                    <!-- Embed course link in an iframe for preview -->
+                    <iframe src="<?= htmlspecialchars($embedUrl); ?>" allowfullscreen></iframe>
+                </td>
+                <input type="hidden" name="id" value="<?= $result['id'] ?>">
                 <td><input type="submit" value="Enroll" name="Enroll"></td>
             </tr>
         </form>
