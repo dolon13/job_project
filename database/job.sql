@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2024 at 11:54 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: May 07, 2024 at 09:11 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,12 +33,23 @@ CREATE TABLE `applicant` (
   `name` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `applicant`
+-- Table structure for table `attempt`
 --
 
-INSERT INTO `applicant` (`jobid`, `useremail`, `name`) VALUES
-('hello@gmail.comSoftw', 'nazmul@gmail.com', 'nazmul');
+CREATE TABLE `attempt` (
+  `circularid` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `attempt`
+--
+
+INSERT INTO `attempt` (`circularid`, `email`) VALUES
+('hello@gmail.comfront', 'nazmul@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -68,20 +79,23 @@ INSERT INTO `blog` (`id`, `email`, `title`, `content`) VALUES
 --
 
 CREATE TABLE `course` (
-  `id` varchar(50) NOT NULL,
+  `id` int(11) NOT NULL,
   `course_name` varchar(100) NOT NULL,
-  `link` varchar(1000) NOT NULL
+  `link` varchar(1000) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `level` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `course`
 --
 
-INSERT INTO `course` (`id`, `course_name`, `link`) VALUES
-('se1', 'Software Engineering in hindi', 'https://www.youtube.com/watch?v=uJpQlyT_CK4&list=PLxCzCOWd7aiEed7SKZBnC6ypFDWYLRvB2'),
-('se2', 'Software Engineering in bangla', 'https://www.youtube.com/watch?v=RXFEUqG8zHQ&list=PLXcgL_xgEnBE8AVYjoHkR9jWbUYlKLH9g'),
-('web1', 'Web development in hindi', 'https://www.youtube.com/watch?v=l1EssrLxt7E&list=PLfqMhTWNBTe3H6c9OGXb5_6wcc1Mca52n'),
-('web2', 'web development in bangla', 'https://www.youtube.com/watch?v=ADFDxhipgiI&list=PLgH5QX0i9K3p06YY1fyReA2UK8mh_zsiY');
+INSERT INTO `course` (`id`, `course_name`, `link`, `type`, `level`) VALUES
+(1, 'HTML', 'https://www.youtube.com/watch?v=ADFDxhipgiI&list=PLgH5QX0i9K3oHBr5dsumGwjUxByN5Lnw3', 'web', 1),
+(2, 'CSS', 'https://www.youtube.com/watch?v=FwmuhNTrJO4&list=PLgH5QX0i9K3qjCBXjTmv7Xeh8MDUUVJDO', 'web', 1),
+(3, 'javascript', 'https://www.youtube.com/watch?v=xpP5L1NuMQU&list=PLgH5QX0i9K3qzryglMjcyEktz4q7ySunX', 'web', 1),
+(4, 'React', 'https://www.youtube.com/watch?v=9IdczKQNg3o&list=PLgH5QX0i9K3rGtitufynBKMy5gAFpa1y8', 'web', 2),
+(5, 'node.js|express.js', 'https://www.youtube.com/watch?v=WC-g0JtEIwM&list=PLHiZ4m8vCp9PHnOIT7gd30PCBoYCpGoQM', 'web', 2);
 
 -- --------------------------------------------------------
 
@@ -122,17 +136,9 @@ INSERT INTO `cv` (`email`, `fname`, `lname`, `father`, `number`, `nationality`, 
 CREATE TABLE `enroll` (
   `email` varchar(100) NOT NULL,
   `courseid` varchar(50) NOT NULL,
-  `link` varchar(1000) NOT NULL
+  `link` varchar(1000) NOT NULL,
+  `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `enroll`
---
-
-INSERT INTO `enroll` (`email`, `courseid`, `link`) VALUES
-('nazmul@gmail.com', 'se1', 'https://www.youtube.com/watch?v=uJpQlyT_CK4&list=PLxCzCOWd7aiEed7SKZBnC6ypFDWYLRvB2'),
-('nazmul@gmail.com', 'se1', 'https://www.youtube.com/watch?v=uJpQlyT_CK4&list=PLxCzCOWd7aiEed7SKZBnC6ypFDWYLRvB2'),
-('nazmul@gmail.com', 'web2', 'https://www.youtube.com/watch?v=ADFDxhipgiI&list=PLgH5QX0i9K3p06YY1fyReA2UK8mh_zsiY');
 
 -- --------------------------------------------------------
 
@@ -158,8 +164,7 @@ CREATE TABLE `jobpost` (
 --
 
 INSERT INTO `jobpost` (`companyName`, `email`, `circularId`, `circularTitle`, `skill`, `shortDesc`, `fullDesc`, `type`, `time`, `mark`) VALUES
-('helloIT', 'hello@gmail.com', 'hello@gmail.comJunio', 'Junior web developer', 'html5, css3, javascript, php, mysql', 'short description', 'full description', 'web', 10, 80),
-('helloIT', 'hello@gmail.com', 'hello@gmail.comSoftw', 'Software engineer', 'java', 'short description', 'full', 'se', 10, 80);
+('helloIT', 'hello@gmail.com', 'hello@gmail.comfront', 'front end developer', 'html, css, javascript', 'fjkasdflkjasdfj', 'kasjdfklasdjfisdjfakdsjfaldfjklkadsjfjkdsfsdfasdf', 'web', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -203,20 +208,20 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`circularId`, `question`, `A`, `B`, `C`, `D`, `ans`) VALUES
-('hello@gmail.comJunio', 'Which of the following languages is primarily used for styling web pages?', 'JavaScript', 'Python', 'HTML', 'CSS', 'CSS'),
-('hello@gmail.comJunio', 'What does CSS stand for?', 'Creative Style Sheets', 'Cascading Style Sheets', 'Computer Style Sheets', 'Central Style Sheets', 'Cascading Style Sheets'),
-('hello@gmail.comJunio', 'Which of the following is NOT a valid HTML tag?', '<header>', '<div>', '<section>', '<paragraph>', '<paragraph>'),
-('hello@gmail.comJunio', 'What does HTML stand for?', 'Hyper Text Markup Language', 'High Tech Markup Language', 'Hyperlinks and Text Markup Language', 'Home Tool Markup Language', 'Hyper Text Markup Language'),
-('hello@gmail.comJunio', 'Which of the following is a JavaScript framework for building user interfaces?', 'jQuery', 'Django', 'React', 'Flask', 'React'),
-('hello@gmail.comJunio', 'What does API stand for in web development?', 'Advanced Programming Interface', 'Application Programming Interface', 'Advanced Protocol Integration', 'Automated Program Integration', 'Application Programming Interface'),
-('hello@gmail.comJunio', 'Which of the following is NOT a type of HTTP request method?', 'GET', 'POST', 'PUSH', 'DELETE', 'PUSH'),
-('hello@gmail.comJunio', 'Which of the following is NOT a commonly used relational database management system (RDBMS)?', 'MySQL', 'MongoDB', 'PostgreSQL', 'SQLite', 'MongoDB'),
-('hello@gmail.comJunio', 'Which of the following is used to make a website responsive to different screen sizes?', 'JavaScript', 'HTML', 'CSS Media Queries', 'PHP', 'CSS Media Queries'),
-('hello@gmail.comJunio', 'What is the purpose of a \"DOCTYPE\" declaration in HTML?', 'It specifies the version of HTML being used.', 'It defines the character encoding of the document.', 'It triggers browser compatibility mode.', 'It declares the document type and root element.', 'It declares the document type and root element.'),
-('1', 'Which of the following languages is primarily used for styling web pages?', 'javascript', 'python', 'html', 'css', 'css'),
-('1', 'Which of the following is a JavaScript framework for building user interfaces?', 'jQuery', 'Django', 'React', 'Flask', 'React'),
-('2', 'which of the following is not a valid html tag?', 'header', 'div', 'section', 'paragraph', 'paragraph'),
-('2', 'what does html stand for?', 'hyper text markup language', 'high tech markup language', 'hyperlinks and text markup language', 'home tool markup language', 'hyper text markup language');
+('hello@gmail.comfront', 'Which of the following languages is primarily used for styling web pages?', 'JavaScript', 'Python', 'HTML', 'CSS', 'CSS'),
+('hello@gmail.comfront', 'What does CSS stand for?', 'Creative Style Sheets', 'Cascading Style Sheets', 'Computer Style Sheets', 'Central Style Sheets', 'Cascading Style Sheets'),
+('hello@gmail.comfront', 'Which of the following is NOT a valid HTML tag?', 'header', 'div', 'section', 'paragraph', 'paragraph'),
+('hello@gmail.comfront', 'What does HTML stand for?', 'Hyper Text Markup Language', 'High Tech Markup Language', 'Hyperlinks and Text Markup Language', 'Home Tool Markup Language', 'Hyper Text Markup Language'),
+('hello@gmail.comfront', 'Which of the following is a JavaScript framework for building user interfaces?', 'jQuery', 'Django', 'React', 'Flask', 'React'),
+('hello@gmail.comfront', 'What does API stand for in web development?', 'Advanced Programming Interface', 'Application Programming Interface', 'Advanced Protocol Integration', 'Automated Program Integration', 'Application Programming Interface'),
+('hello@gmail.comfront', 'Which of the following is NOT a type of HTTP request method?', 'GET', 'POST', 'PUSH', 'DELETE', 'PUSH'),
+('hello@gmail.comfront', 'Which of the following is NOT a commonly used relational database management system (RDBMS)?', 'MySQL', 'MongoDB', 'PostgreSQL', 'SQLite', 'MongoDB'),
+('hello@gmail.comfront', 'Which of the following is used to make a website responsive to different screen sizes?', 'JavaScript', 'HTML', 'CSS Media Queries', 'PHP', 'CSS Media Queries'),
+('hello@gmail.comfront', 'What is the purpose of a \"DOCTYPE\" declaration in HTML?', 'It specifies the version of HTML being used.', 'It defines the character encoding of the document.', 'It triggers browser compatibility mode.', 'It declares the document type and root element.', 'It declares the document type and root element.'),
+('1', 'Which of the following languages is primarily used for styling web pages?', 'JavaScript', 'Python', 'HTML', 'CSS', 'CSS'),
+('1', 'What does CSS stand for?', 'Creative Style Sheets', 'Cascading Style Sheets', 'Computer Style Sheets', 'Central Style Sheets', 'Cascading Style Sheets'),
+('2', 'Which of the following is used to make a website responsive to different screen sizes?', 'JavaScript', 'HTML', 'CSS Media Queries', 'PHP', 'CSS Media Queries'),
+('2', 'What is the purpose of a \"DOCTYPE\" declaration in HTML?', 'It specifies the version of HTML being used.', 'It defines the character encoding of the document.', 'It triggers browser compatibility mode.', 'It declares the document type and root element.', 'It declares the document type and root element.');
 
 -- --------------------------------------------------------
 
@@ -227,16 +232,17 @@ INSERT INTO `question` (`circularId`, `question`, `A`, `B`, `C`, `D`, `ans`) VAL
 CREATE TABLE `quiz` (
   `id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
-  `tq` int(11) NOT NULL
+  `tq` int(11) NOT NULL,
+  `type` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `quiz`
 --
 
-INSERT INTO `quiz` (`id`, `name`, `tq`) VALUES
-(1, 'web', 2),
-(2, 'web', 2);
+INSERT INTO `quiz` (`id`, `name`, `tq`, `type`) VALUES
+(1, 'web development', 2, 'web'),
+(2, 'software development', 2, 'se');
 
 -- --------------------------------------------------------
 
@@ -266,8 +272,7 @@ CREATE TABLE `result` (
 --
 
 INSERT INTO `result` (`email`, `id`, `result`) VALUES
-('nazmul@gmail.com', 1, 2),
-('nazmul@gmail.com', 2, 2);
+('nazmul@gmail.com', 1, 1500);
 
 -- --------------------------------------------------------
 
@@ -292,6 +297,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`name`, `email`, `pass`, `description`, `number`, `address`, `DOB`, `img`, `acctype`) VALUES
+('evan', 'evan@gmail.com', 'evan', 'sdklfjakdfjaksdjf', 'dsklfjaldfk', 'jdfaljksdfasdjfsf', '2024-05-06', 'karim.png', 'individual'),
 ('helloIT', 'hello@gmail.com', 'hello', 'N/A', '01800000000', 'fklasjdflkasdjfklasj', 'N/A', 'images (1).jpg', 'organization'),
 ('Nazmul', 'nazmul2@gmail.com', 'Nazmul', 'N/A', '01835827280', 'Dhaka', '1999-11-13', 'N/A', 'admin'),
 ('Nazmul', 'nazmul@gmail.com', 'nazmul', 'SDFASDFASG', 'kjfajasdflk', 'dlkfjasd;fljk', '2001-11-13', 'karim.png', 'individual');
@@ -339,6 +345,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `blog`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `course`
+--
+ALTER TABLE `course`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

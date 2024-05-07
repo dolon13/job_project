@@ -147,6 +147,7 @@
         <div class="left">
             <button type="button" onclick="setquiz()">Set Quiz</button>
             <button type="button" onclick="blog()">Write Blog</button>
+            <button type="button" onclick="course()">Add Course</button>
             <button type="button" onclick="logout()">Log Out</button>
         </div>
         <div class="divider"></div>
@@ -192,6 +193,9 @@
         }
         function setquiz(){
             window.location.href = "adminsetquiz.php";
+        }
+        function course(){
+            window.location.href = "addcourse.php";
         }
     </script>
 </body>

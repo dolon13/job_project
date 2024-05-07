@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,43 +55,32 @@
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
+        .container{
+            width: 50%;
+            height: auto;
+            margin: auto;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
 <body>
-    <div id="main">
-        <div id="top">
-            <h1>Set a Quiz for Candidate</h1>
-        </div>
-        <div id="bottom">
-            <form action="php/quiz.php" method="POST">
-                <div class="form-group">
-                    <input type="text" name="question" placeholder="Enter question" class="form-control">
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <input type="text" name="a" placeholder="Enter option A" class="form-control">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <input type="text" name="b" placeholder="Enter option B" class="form-control">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <input type="text" name="c" placeholder="Enter option C" class="form-control">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <input type="text" name="d" placeholder="Enter option D" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="ans" placeholder="Enter Correct Answer" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Add / Add More" name="Add" class="btn btn-primary">
-                    <input type="submit" value="Done" name="done" class="btn btn-success" style="background-color: green;margin-top: 5px;">
-                </div>
-            </form>
-        </div>
-    </div>
+<div class="container">
+<form action="php/quiz.php" method="POST">
+        <?php
+            for($i = 0; $i < 10; $i++){
+        ?>
+            <input type="text" name="<?php echo $i.'q' ?>" placeholder="Question <?php echo $i+1 ?>" required>
+            <input type="text" name="<?php echo $i.'a' ?>" placeholder="Option A" required>
+            <input type="text" name="<?php echo $i.'b' ?>" placeholder="Option B" required>
+            <input type="text" name="<?php echo $i.'c' ?>" placeholder="Option C" required>
+            <input type="text" name="<?php echo $i.'d' ?>" placeholder="Option D" required>
+            <input type="text" name="<?php echo $i.'ans' ?>" placeholder="Correct Answer" required>
+        <?php
+            } 
+        ?>
+        <input type="submit" value="Set" name="set">
+    </form>
+</div>
 </body>
-
 </html>

@@ -13,6 +13,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Career Counseling</title>
     <style>
+        body{
+            background-image: url("bg2.png");
+            background-size: cover;
+        }
         /* CSS styles */
         .right, .left {
             width: 50%;
@@ -56,7 +60,7 @@
     <?php include("header.php"); ?>
     
     <div class="right">
-        <h2>Post</h2>
+        <h2>Blogs</h2>
         <table>
             <?php
             include("php/conn.php");
@@ -85,7 +89,7 @@
     </div>
     
     <div class="left">
-        <h2>Quiz</h2>
+        <h2>Practice Quiz</h2>
         <table>
             <?php
             include("php/conn.php");
@@ -93,12 +97,17 @@
             $query = "SELECT `id`, `name` FROM `quiz`";
             $result = mysqli_query($conn, $query);
             if(mysqli_num_rows($result) > 0) {
+                l:
                 while($row = mysqli_fetch_assoc($result)) {
                     $id = $row['id'];
                     $query = "SELECT`email`FROM `result` WHERE id = '$id';";
                     $run = mysqli_query($conn, $query);
                     if(mysqli_num_rows($run) > 0){
-                        continue;
+                        while($r = mysqli_fetch_assoc($run)){
+                            if($r['email'] == $email){
+                                goto l;
+                            }
+                        }
                     }
             ?>
             <tr>

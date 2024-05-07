@@ -77,19 +77,10 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Enter circular id" name="id">
-            </div>
-            <div class="form-group">
                 <input type="text" class="form-control" placeholder="Enter circular title" name="title">
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Enter required skill" name="skill">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Enter time for quiz" name="time">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Enter pass mark" name="mark">
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Enter a short description" name="shortdesc">

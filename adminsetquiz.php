@@ -10,6 +10,7 @@
         $id = $_POST['id'];
         $name = $_POST['name'];
         $nq = $_POST['nq'];
+        $type = $_POST['type'];
         $query = "SELECT `id` FROM `quiz` WHERE `id` = '$id'";
         $run = mysqli_query($conn, $query);
         $r = mysqli_fetch_assoc($run);
@@ -17,7 +18,7 @@
             $_SESSION['qid'] = $id;
             $_SESSION['qname'] = $_POST['name'];
             $_SESSION['qnq'] = $_POST['nq'];
-            $query = "INSERT INTO `quiz`(`id`, `name`, `tq`) VALUES ('$id','$name', '$nq')";
+            $query = "INSERT INTO `quiz`(`id`, `name`, `tq`, `type`) VALUES ('$id','$name', '$nq', '$type')";
             $run = mysqli_query($conn, $query);
             header("location:setquiz.php");
         }
@@ -33,6 +34,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Set quiz</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -76,6 +78,12 @@
     <form action="adminsetquiz.php" method="POST">
         <input type="text" name="id" placeholder="Enter quiz Id">
         <input type="text" name="name" placeholder="Enter quiz name">
+        <select name="type" id="type" class="form-control mb-3">
+            <option value="--">Select quiz type</option>
+            <option value="web">Web Developer</option>
+            <option value="se">Software Engineer</option>
+            <option value="da">Data Analyst</option>
+        </select>
         <input type="text" name="nq" placeholder="Enter total number of question">
         <input type="submit" value="Next" name="next">
     </form>

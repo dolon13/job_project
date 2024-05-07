@@ -5,8 +5,8 @@
     $type = $_POST['type'];
     $title = $_POST['title'];
     $skill = $_POST['skill'];
-    $time = $_POST['time'];
-    $mark = $_POST['mark'];
+    $time = "n/a";
+    $mark = "n/a";
     $shortdesc = $_POST['shortdesc'];
     $fulldesc = $_POST['fulldesc'];
     $id = $email.$title;

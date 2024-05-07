@@ -110,6 +110,7 @@ tr:hover {
                     <a href="editprofile.php" class="btn btn-primary">Edit Profile</a>
                     <a href="buildcv.php" class="btn btn-primary">Build CV</a>
                     <a href="editcv.php" class="btn btn-primary">Edit CV</a>
+                    <a href="ecourse.php" class="btn btn-primary">Course</a>
                 </div>
             </div>
         </div>

@@ -111,12 +111,12 @@
             $run = mysqli_query($conn, $query);
             while($row = mysqli_fetch_assoc($run)){
                 $cid = $row['circularId'];
-                $query = "SELECT `useremail` FROM `applicant` WHERE jobid = '$cid'";
+                $query = "SELECT `email` FROM `attempt` WHERE circularid = '$cid'";
                 $result = mysqli_query($conn, $query);
                 if($result != NULL){
                     if(mysqli_num_rows($result) > 0){
                         $r = mysqli_fetch_assoc($result);
-                        if($r['useremail'] == $email){
+                        if($r['email'] == $email){
                             continue;
                         }
                     }

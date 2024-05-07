@@ -50,14 +50,52 @@
         .quiz-link:hover {
             background-color: #0056b3;
         }
+        .submit-button {
+            background-color: #4CAF50; /* Green background */
+            border: none; /* Remove default border */
+            color: white; /* White text color */
+            padding: 15px 32px; /* Padding */
+            text-align: center; /* Center align text */
+            text-decoration: none; /* Remove default underline */
+            display: inline-block; /* Display as inline-block */
+            font-size: 16px; /* Font size */
+            cursor: pointer; /* Cursor on hover */
+            border-radius: 4px; /* Rounded corners */
+            transition: background-color 0.3s; /* Smooth transition for background color */
+            margin-bottom: 10px;
+        }
+
+        /* Hover effect */
+        .submit-button:hover {
+            background-color: #45a049; /* Darker green */
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2 style="color: red">Note: Apply for the Job</h2>
         <p style="color: red">To apply for this position, you need to attempt a quiz. Remember, you have only one chance to complete the quiz. If you minimize or change the window, your answers will be automatically submitted. Ensure a stable internet connection before starting the quiz.</p>
-        <a href="quizsheet.php" class="quiz-link">Attempt Quiz</a>
+        <form action="apply.php" method="POST">
+            <input type="submit" value="Attempt" name="submit" class="submit-button">
+        </form>
         <a href="../home.php" class="quiz-link">Back to home</a>
     </div>
 </body>
 </html>
+<?php
+    if(isset($_POST['submit'])){
+        session_start();
+        include("conn.php");
+        $id = $_SESSION['jobid'];
+        $email = $_SESSION['email'];
+        $query = "INSERT INTO `attempt`(`circularid`, `email`) VALUES ('$id','$email')";
+        $run = mysqli_query($conn, $query);
+        if($run){
+            header("location:quizsheet.php");
+        }
+        else{
+            $_SESSION['msg'] = "Something wrong, try again";
+            header("location:../home.php");
+        }
+    }
+?>
